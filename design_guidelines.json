@@ -1,0 +1,133 @@
+{
+  "theme": "dark",
+  "typography": {
+    "headings": {
+      "family": "Cormorant Garamond, serif",
+      "weights": ["300", "400", "600"],
+      "usage": "Hero typography, section headers, product names. Never use Inter or generic sans for headings. Use italic weight for accents.",
+      "scales": {
+        "h1": "text-5xl sm:text-6xl md:text-7xl tracking-tight leading-none",
+        "h2": "text-4xl sm:text-5xl tracking-tight",
+        "h3": "text-2xl sm:text-3xl",
+        "h4": "text-xl"
+      }
+    },
+    "body": {
+      "family": "Manrope, sans-serif",
+      "weights": ["300", "400", "500"],
+      "usage": "Paragraphs, navigation links, buttons, admin dashboard.",
+      "scales": {
+        "base": "text-base leading-relaxed tracking-wide",
+        "small": "text-sm tracking-widest uppercase",
+        "tiny": "text-xs uppercase tracking-[0.2em]"
+      }
+    }
+  },
+  "colors": {
+    "background": {
+      "primary": "#0D0A08",
+      "secondary": "#140F0C",
+      "tertiary": "#1C1410",
+      "modal": "#17100D",
+      "admin": "#120E0B"
+    },
+    "text": {
+      "primary": "#F4EFE6",
+      "secondary": "#C7BCA7",
+      "muted": "#8A8071",
+      "accent": "#D4AF37"
+    },
+    "border": {
+      "default": "#2A201A",
+      "hover": "#423229"
+    },
+    "accent": {
+      "gold": "#D4AF37",
+      "champagne": "#E8D3A2",
+      "rust": "#8C3B20"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": {
+      "background": "bg-[#140F0C]/60",
+      "blur": "backdrop-blur-xl",
+      "border": "border border-[#F4EFE6]/10",
+      "shadow": "shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+    },
+    "shadows": {
+      "glow": "drop-shadow-[0_0_15px_rgba(212,175,55,0.15)]",
+      "deep": "shadow-[0_20px_40px_rgba(0,0,0,0.6)]"
+    },
+    "texture": "Subtle noise overlay (opacity 2-3%) across the entire site to remove digital flatness."
+  },
+  "grids_and_layouts": {
+    "spacing": {
+      "section_y": "py-24 md:py-32 lg:py-40",
+      "container_px": "px-6 md:px-12 lg:px-24",
+      "gap": "gap-8 md:gap-16"
+    },
+    "bento_marketing": "Use asymmetric layouts. Text on one side, overlapping large image on the other. Large negative space.",
+    "admin_dashboard": "Tight grid. grid-cols-1 md:grid-cols-4. Use solid borders (#2A201A) and zero border-radius (sharp edges) or max 4px for a highly premium, structural feel."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#D4AF37] text-[#0D0A08] hover:bg-[#E8D3A2] rounded-none px-8 py-4 text-sm tracking-widest uppercase transition-colors duration-300",
+      "secondary": "bg-transparent text-[#F4EFE6] border border-[#F4EFE6]/20 hover:border-[#D4AF37] hover:text-[#D4AF37] rounded-none px-8 py-4 text-sm tracking-widest uppercase transition-all duration-300",
+      "magnetic": "Wrap primary buttons in Framer Motion magnetic hover effect."
+    },
+    "cards": {
+      "marketing": "Cardless design. Large unconstrained imagery with overlapping text. No generic boxes.",
+      "admin": "Sharp rectangular cards (rounded-none), bg-[#140F0C], border border-[#2A201A], p-6."
+    },
+    "navigation": {
+      "style": "Glassmorphism sticky header. Transparent at top, blurs on scroll. Logo centered or left.",
+      "links": "Hover state: underline animation or color change to gold."
+    },
+    "forms": {
+      "inputs": "bg-transparent border-b border-[#F4EFE6]/20 rounded-none focus:border-[#D4AF37] text-[#F4EFE6] px-0 py-3 ring-0 outline-none transition-colors",
+      "labels": "text-xs tracking-[0.2em] uppercase text-[#8A8071]"
+    }
+  },
+  "motion_and_3d": {
+    "scroll": "MUST use Lenis for smooth scrolling.",
+    "parallax": "Use Framer Motion useScroll and useTransform for subtle image parallax inside overflow-hidden containers.",
+    "reveal": "Staggered text reveal for H1 and section headers (words moving up from a mask).",
+    "3d_libraries": {
+      "hero": "@react-three/fiber, @react-three/drei for floating coffee beans and subtle steam particles.",
+      "alternatives": "If 3D is too heavy, use Framer Motion 3D or high-quality video/image sequence."
+    },
+    "micro_interactions": "Custom cursor (a small gold dot, expands on hover). Image hover: slight scale (1.05) and darken overlay."
+  },
+  "media_and_images": {
+    "style": "Cinematic, dark, high contrast, warm lighting. Deep browns and blacks.",
+    "image_urls": {
+      "hero_background": "https://images.unsplash.com/photo-1726835498689-b4f6dbcdbdfb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzF8MHwxfHNlYXJjaHwyfHxsdXh1cnklMjBjYWZlJTIwaW50ZXJpb3IlMjBkYXJrJTIwbW9vZHxlbnwwfHx8fDE3ODYyMTk0Njd8MA&ixlib=rb-4.1.0&q=85",
+      "pouring_espresso": "https://images.unsplash.com/photo-1522992319-0365e5f11656?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwzfHxwb3VyaW5nJTIwZXNwcmVzc28lMjBzaG90JTIwZGFyayUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzg2MjE5NDY3fDA&ixlib=rb-4.1.0&q=85",
+      "fine_dessert": "https://images.unsplash.com/photo-1776763019245-2de2352cce7e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTB8MHwxfHNlYXJjaHwzfHxmaW5lJTIwZGluaW5nJTIwZGVzc2VydCUyMGRhcmslMjBjaG9jb2xhdGUlMjBwbGF0ZXxlbnwwfHx8fDE3ODYyMTk0Njd8MA&ixlib=rb-4.1.0&q=85",
+      "coffee_beans": "https://images.unsplash.com/photo-1620815498155-a09c73b5fce1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHwzfHxjb2ZmZWUlMjBiZWFucyUyMGZsb2F0aW5nJTIwZGFyayUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzg2MjE5NDY3fDA&ixlib=rb-4.1.0&q=85"
+    }
+  },
+  "accessibility": {
+    "contrast": "Ensure text over images has sufficient gradient overlay (e.g., from-black/80 to-transparent).",
+    "motion": "Respect prefers-reduced-motion for 3D and heavy scroll effects.",
+    "testing": "All interactive elements MUST have data-testid attributes (e.g., data-testid='explore-menu-btn')."
+  },
+  "instructions_to_main_agent": [
+    "Install lucide-react, framer-motion, @react-three/fiber, @react-three/drei, lenis for frontend.",
+    "Set up Tailwind config with provided colors, fonts, and custom utilities (e.g., grain overlay).",
+    "Use Manrope for body font and Cormorant Garamond for headings. Import them via Google Fonts in index.html.",
+    "Build the marketing page with pure HTML/Tailwind and Framer Motion. Do not use standard Shadcn cards for marketing sections.",
+    "For the Admin dashboard and Menus, use customized Shadcn components (sharp corners, dark theme colors).",
+    "Implement a custom cursor that reacts to hoverable elements.",
+    "Never use generic placeholders. Use the provided Unsplash URLs.",
+    "Ensure the hero section has high visual impact, combining the dark cafe interior or espresso pouring image with overlapping bold serif text.",
+    "You MUST write code in .js / .jsx files only, NOT .tsx files. Ignore Shadcn .tsx defaults, convert them to .jsx."
+  ],
+  "universal_guidelines": {
+    "no_generic_slop": "Avoid generic centered layouts. Use asymmetrical bento grids or overlapping editorial layouts.",
+    "depth": "Create depth with layered elements, subtle shadows, and parallax scrolling.",
+    "animations": "Every interaction needs micro-animations. Static is dead.",
+    "spacing": "Use 2x-3x more spacing (py-24 or py-32 for sections) than typical apps.",
+    "components": "Use sonner for toasts. Do NOT use completely transparent backgrounds for overlays. Always provide backdrop blurs."
+  }
+}
