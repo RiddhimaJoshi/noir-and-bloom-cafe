@@ -1,0 +1,50 @@
+{
+  "summary": "First-iteration full-stack testing of NOIR & BLOOM. Backend: 26/27 pytest tests pass (96%). Frontend: home hero (3D canvas) renders with ZERO pageerror/console-error — the @react-three/fiber@9 upgrade fully resolved the ReactCurrentOwner crash. Menu (12 products from API), product details, add-to-cart, cart totals with NOIR10 coupon, admin login (JWT stored in localStorage.nb_admin_token), and admin dashboard with charts all work end-to-end. One backend bug identified: POST /api/admin/products throws TypeError due to duplicate 'slug' keyword.",
+  "backend_issues": {
+    "critical": [
+      {
+        "endpoint": "POST /api/admin/products",
+        "issue": "500 Internal Server Error — TypeError: server.Product() got multiple values for keyword argument 'slug'. Root cause in server.py line 331: `Product(**body.model_dump(), slug=slug)` — body.model_dump() already contains 'slug' key (even if None) because ProductIn.slug is Optional. Fix: pop slug from the dumped dict first, e.g. `data = body.model_dump(); data['slug'] = slug; Product(**data)`.",
+        "priority": "HIGH"
+      }
+    ],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Cart page / other inner pages",
+        "issues": ["Top nav on inner pages (Cart) appears to only show Menu + Contact — 'Our Story', 'Locations', 'Events' links seem hidden or hidden behind the success toast overlay in Cart context. Worth confirming this is intentional (not a broken nav render). On the home page all 5 nav links appear correctly."]
+      }
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Fix POST /api/admin/products duplicate-slug TypeError in server.py:331 (change to `data = body.model_dump(exclude={'slug'}); Product(**data, slug=slug)` or similar).",
+    "(Optional) Confirm inner-page nav is intentionally condensed vs. accidentally hiding links."
+  ],
+  "critical_code_review_comments": [
+    "server.py:331 create_product — passes slug twice; will always 500 when called (see above).",
+    "server.py:337 update_product — uses `body.model_dump(exclude_unset=True)` but ProductIn requires all fields, so exclude_unset never excludes anything; also client can PUT a stale full doc and overwrite fields silently. Consider a separate ProductUpdate model with all-optional fields.",
+    "server.py uses deprecated @app.on_event('startup'/'shutdown') — should migrate to FastAPI lifespan context (non-blocking for now, but will warn).",
+    "server.py:288 search uses raw user input in $regex without escaping — user-supplied regex metacharacters (e.g. '(') could raise PCRE errors or ReDoS. Escape with re.escape.",
+    "server.py file is 658 lines — approaching split threshold; consider splitting into routers (products, admin, checkout, forms).",
+    "Admin stats string-startswith date comparison assumes created_at is ISO-formatted UTC and starts with YYYY-MM-DD — fine for now but brittle if timezones change."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py (new)",
+    "/app/backend/tests/__init__.py (new)"
+  ],
+  "success_rate": {"backend": "96% (26/27)", "frontend": "100% of tested flows"},
+  "test_credentials": "admin@noirandbloom.com / NoirBloom2026 — verified working",
+  "seed_data_creation": "Backend auto-seeds admin + 12 products + 2 coupons on startup — verified. Test suite creates transient TEST_ orders/contacts/reservations; cleanup not implemented but low-volume.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend test file at /app/backend/tests/backend_test.py runs in ~4s and covers 27 cases across products, cart, coupons, checkout (creates a real Stripe session), forms, admin CRUD, auth-middleware. Only failing test after main-agent fix will be TestAdmin.test_product_crud. Stripe /api/checkout/session returns a real https://checkout.stripe.com URL — do not automate past that. Frontend hero 3D bug is confirmed fixed; no need to re-verify unless HeroCanvas.jsx or fiber deps change.",
+  "rca of the issue": "POST /api/admin/products always 500s. server.py line 331: `Product(**body.model_dump(), slug=slug)` — because ProductIn declares `slug: Optional[str] = None`, model_dump() returns a dict with 'slug': None, then the explicit slug=slug kwarg collides → TypeError. Repro: obtain admin JWT, POST {name, category, price, description, image} without slug. Fix: `dumped = body.model_dump(); dumped['slug'] = (body.slug or body.name).lower().replace(' ', '-'); doc = Product(**dumped).model_dump()`."
+}
