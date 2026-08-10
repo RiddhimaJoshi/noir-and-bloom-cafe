@@ -327,8 +327,9 @@ async def me(payload=Depends(require_admin)):
 # ------------- Admin: Products CRUD -------------
 @api_router.post("/admin/products")
 async def create_product(body: ProductIn, _=Depends(require_admin)):
-    slug = (body.slug or body.name).lower().replace(" ", "-")
-    doc = Product(**body.model_dump(), slug=slug).model_dump()
+    data = body.model_dump()
+    data["slug"] = (body.slug or body.name).lower().replace(" ", "-")
+    doc = Product(**data).model_dump()
     await db.products.insert_one(doc)
     return clean(doc)
 
