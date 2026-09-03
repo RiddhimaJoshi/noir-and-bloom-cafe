@@ -15,11 +15,11 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field, EmailStr, ConfigDict
 from starlette.middleware.cors import CORSMiddleware
 
-from emergentintegrations.payments.stripe.checkout import (
-    StripeCheckout,
-    CheckoutSessionRequest,
-    CheckoutStatusResponse,
-)
+#from emergentintegrations.payments.stripe.checkout import (
+    #StripeCheckout,
+   # CheckoutSessionRequest,
+   # CheckoutStatusResponse,
+#)
 
 # ------------- Setup -------------
 ROOT_DIR = Path(__file__).parent
